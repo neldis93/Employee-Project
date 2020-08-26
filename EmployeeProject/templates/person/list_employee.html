@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Admin Employee List
+{% endblock title %}
+    
+
+{% block content %}
+    {% include 'includes/header.html' %}
+    <div class="grid-container">
+        <div class="grid-x">
+            <h1 class="cell">Employees List</h1>
+            <div class="cell">
+                <table>
+                    <thead>
+                      <tr>
+                        <th width="120">ID</th>
+                        <th width="120">NAME</th>
+                        <th width="120">LAST NAME</th>
+                        <th width="150">DEPARTMENT</th>
+                        <th class="text-center" width="120">ACTION</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for admi in list_all_employees %}
+                      <tr>
+                        <td>{{ admi.id }}</td>
+                        <td>{{ admi.first_name }}</td>
+                        <td>{{ admi.last_name }}</td>
+                        <td>{{ admi.department }}</td>
+                        <td> 
+                            <a class=" clear button primary" href="{% url 'person_app:update_employee' admi.id %}">Edit</a>
+                            <a class=" clear button alert" href="{% url 'person_app:delete_employee' admi.id %}">Delete</a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="cell">
+             {% if is_paginated %}
+                <nav aria-label="Pagination">
+                    <ul class="pagination text-center">
+                        
+                        {% if page_obj.has_previous %}
+                            <li class="pagination-previous"><a href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                        {% endif %}
+                        
+                        {% for pages in paginator.page_range %} <!--paginator es paginate_by de mi views.py-->
+
+                            {% ifequal pages page_obj.number %} <!-- ifequal hace comparaciones--> 
+                                <li class="current"><span class="show-for-sr">You're on page</span>{{ pages }}</li>
+                            {% else %}
+                                <li><a href="?page={{ pages }}">{{ pages }}</a></li>    
+                            {% endifequal %}
+                                
+                        {% endfor %}
+                          
+                        {% if page_obj.has_next %}
+                            <li class="pagination-next"><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+    
+{% endblock content %}

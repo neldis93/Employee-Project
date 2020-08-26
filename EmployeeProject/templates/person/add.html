@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Add Employee 
+{% endblock title %}
+    
+
+{% block content %}
+    {% include 'includes/header.html' %}
+    <div class="grid-container">
+        <div class="grid-x">
+            <h1 class="cell">Add Employees</h1>                    <!-- enctype es para que acepte todo de archivo de imagen-->
+                <form class="cell callout grid-x grid-margin-x" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+                    <div class="medium-6 cell">
+                        <label>Names:
+                            {{ form.first_name }} <!-- form se crea como palabra reservara en el CreateView-->
+                        </label>
+                      </div>
+                      <div class="medium-6 cell">
+                        <label>Last Name:
+                            {{ form.last_name }}
+                        </label>
+                      </div>
+                      <div class="medium-6 cell">
+                        <label>Job:
+                            {{ form.job }}
+                        </label>
+                      </div>
+                      <div class="medium-6 cell">
+                        <label>Department:
+                            {{ form.department }}
+                        </label>
+                      </div>
+                      <div class="medium-12 cell">
+                        <label>Skills:
+                            {{ form.skills }}
+                        </label>
+                      </div>
+                      <div class="medium-12 cell">
+                        <label>Image:
+                            {{ form.image }}
+                        </label>
+                      </div>
+                      <div class="cell">
+                        <button type="submit" class="button primary"> Add </button>
+                      </div>
+                </form>
+        </div>
+    </div>
+{% endblock content %}

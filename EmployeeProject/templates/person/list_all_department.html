@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    List Of Employees By Department
+{% endblock title %}
+
+{% block content %}
+    {% include 'includes/header.html' %}
+    <div class="grid-container">
+        <div class="grid-x">
+            <h1 class="cell">Employees By Department</h1>
+            <div class="cell">
+                <table>
+                    <thead>
+                      <tr>
+                        <th width="150">ID</th>
+                        <th width="150">NAME</th>
+                        <th width="150">LAST NAME</th>
+                        <th width="150">DEPARTMENT</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for emplo in list_department %}
+                      <tr>
+                        <td>{{ emplo.id }}</td>
+                        <td>{{ emplo.first_name }}</td>
+                        <td>{{ emplo.last_name }}</td>
+                        <td>{{ emplo.department }}</td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+{% endblock content %}

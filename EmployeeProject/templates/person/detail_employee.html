@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    {{ object.full_name }}
+{% endblock title %}
+    
+
+{% block content %}
+    {% include 'includes/header.html' %}
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x align-center">
+           <div class=" cell large-4 card" style="width: 300px; margin-top: 12px;">
+                <div class="card-divider">
+                    {{ object.get_job_display }}
+                </div>
+                {% if object.image %}
+                    <img src="{{ object.image.url }}"> 
+                {% else %}
+                    <img src=" {% static 'img/usuario-sin-foto.png' %}">  <!--Imagen por defecto al mostar cuando un empleado no tiene una-->
+                {% endif %}
+                <div class="card-section">
+                <h4>{{ object.full_name }}</h4>
+                <p>{{ object.first_name }}</p>
+                <p>{{ object.last_name }}</p>
+                <p>{{ object.department.short_name }}</p>
+                <p> <span class="label">Skills:</span></p>
+                <ul class="vertical menu">
+                    {% for sk in object.skills.all %}
+                        <li>{{ sk }}</li>        
+                    {% endfor %}              
+                </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+

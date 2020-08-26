@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Employee List
+{% endblock title %}
+
+{% block content %}
+    {% include 'includes/header.html' %}
+
+    <div class="grid-container">
+        <div class="grid-x">
+            <h1 class="cell">Employees List</h1>
+            <form class="cell grid-x grid-margin-x" method="GET"> {% csrf_token %}
+                <div class="cell large-7">
+                    <input type="text" id="keyword" name="keyword" placeholder="Search Employee">
+                </div>
+                <div class="cell large-2">
+                    <button type="submit" class="button primary">Search</button>
+                </div>
+            </form>
+            <div class="cell">
+                <table>
+                    <thead>
+                      <tr>
+                        <th width="200">ID</th>
+                        <th>NAME</th>
+                        <th width="150">LAST NAME</th>
+                        <th width="150">DEPARTMENT</th>
+                        <th width="150">ACTION</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for empl in list_all_employees %}
+                      <tr>
+                        <td>{{ empl.id }}</td>
+                        <td>{{ empl.first_name }}</td>
+                        <td>{{ empl.last_name }}</td>
+                        <td>{{ empl.department }}</td>
+                        <td> 
+                            <a class="button expanded primary" href="{% url 'person_app:detail_employee' empl.id %}">See</a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="cell">
+             {% if is_paginated %}
+                <nav aria-label="Pagination">
+                    <ul class="pagination text-center">
+                        
+                        {% if page_obj.has_previous %}
+                            <li class="pagination-previous"><a href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                        {% endif %}
+                        
+                        {% for pages in paginator.page_range %} <!--paginator es paginate_by de mi views.py-->
+
+                            {% ifequal pages page_obj.number %} <!-- ifequal hace comparaciones--> 
+                                <li class="current"><span class="show-for-sr">You're on page</span>{{ pages }}</li>
+                            {% else %}
+                                <li><a href="?page={{ pages }}">{{ pages }}</a></li>    
+                            {% endifequal %}
+                                
+                        {% endfor %}
+                          
+                        {% if page_obj.has_next %}
+                            <li class="pagination-next"><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+    
+{% endblock content %}
+    

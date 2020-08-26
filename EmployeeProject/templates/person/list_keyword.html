@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+</head>
+<body>
+
+    <h2> Filter Employees Keyword </h2>
+    
+    <form method="get"> {% csrf_token %}
+
+        <input type="text" id="keyword" name="keyword" placeholder="Enter Name">
+        <button type="submint"> Search </button>
+
+    <h3> Results List </h3>
+    <ul>
+        {% for k in keyword %}
+            <li>{{ k }}</li>
+
+        {% endfor %}
+        
+    </ul>
+
+    </form>
+    
+</body>
+</html>
